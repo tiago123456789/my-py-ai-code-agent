@@ -1,0 +1,19 @@
+*{box-sizing:border-box} body{font-family: Arial, sans-serif; background:#f4f5f7; padding:20px;}
+.app{max-width:1000px;margin:0 auto}
+.task-form{display:flex;gap:10px;margin-bottom:20px}
+#taskTitle{flex:1;padding:10px;border:1px solid #ccc;border-radius:6px}
+#saveBtn{padding:10px 14px;background:#4caf50;color:white;border:none;border-radius:6px;cursor:pointer}
+.board{display:flex;gap:16px;min-height:300px}
+.column{flex:1;background:#e9eef7;border-radius:8px;padding:8px;}
+.column-header{font-weight:700;margin-bottom:8px;text-align:center}
+.task-list{min-height:200px;padding:6px;border-radius:6px;background:white}
+.task{display:flex;justify-content:space-between;align-items:center;padding:8px 6px;margin:6px 0;background:#f8f9fa;border:1px solid #ddd;border-radius:6px}
+.task-title{flex:1;margin-right:8px}
+.delete-btn{background:#e74c3c;color:white;border:none;border-radius:6px;padding:6px 8px;cursor:pointer}
+.drag-over{border:2px dashed #2e86de}
+
+@media (max-width: 700px){
+  .board{flex-direction:column}
+}
+/* Edit button styled like Delete button but blue */
+.edit-btn{ background:#2e86de; color:white; border:none; border-radius:6px; padding:6px 8px; cursor:pointer}
