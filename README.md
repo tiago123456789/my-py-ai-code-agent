@@ -15,6 +15,11 @@
 - Create virtual environment using venv: python -m venv .venv
 - Activate virtual environment: source .venv/bin/activate
 - Install dependencies: pip install -r requirements.txt
+- Access file **config.py** and change 2 lines:
+```python
+WORKING_DIR="absolute_path_where_you_installed_project" // Or ./
+PROJECT_FOLDER="absolute_path_where_you_installed_project"      // Or ./
+```
 - Run the project: python main.py. PS: to run the project on specific folder **WF=absolute_folder_path_here python main.py** , to use the MCP servers **MCP_FILE=absolute_path_json_file_here python main.py** or to use both **WF=absolute_folder_path_here MCP_FILE=absolute_path_json_file_here python main.py**
 
 ## EXTRA INFO
