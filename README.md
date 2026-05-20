@@ -20,3 +20,4 @@
 ## EXTRA INFO
 
 - You can see a example of mcp.json on root of project, file named **mcp.json**
+- The folders todo-app and todo-app-react are project I created used this AI code agent.
