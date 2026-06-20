@@ -3,7 +3,7 @@
 - The project is AI code agent created by me to understand how tools like Codex, Claude, OpenCode works under the hood.
 
 ## FEATURES
-- Code agent que receive many instructions at once and will understand execute one by one
+- Code agent can receive many instructions at once and will understand execute one by one
 - Support tools. PS: you can create your tools add a file on folder **tools**
 - Support MCP servers. PS: you need to provide the file in json format.
 
