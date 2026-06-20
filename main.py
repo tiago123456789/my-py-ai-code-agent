@@ -87,6 +87,16 @@ async def start():
     while(True):
         user_prompt = input(f"> Tell what you want to do?(Model: {model} | Plan mode: {'Enabled' if enablePlanMode else 'Disabled'})\n")
             
+        if user_prompt == "/help":
+            print("""
+                /models - List all models available
+                /set-model <model_id> - Set the model to use
+                /plan - Enable plan mode. PS: is good to plan feature before build anything
+                /build - Build the plan. PS: execute the plan. Default mode when start the code agent
+                /exit - Exit the program
+            """)
+            continue
+
         if user_prompt == "/models":
             for model in models:
                 print(model)
