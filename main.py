@@ -57,6 +57,17 @@ async def run_function(name, args):
     return module.run(working_folder or config.WORKING_DIR, args)
 
 async def start():
+    models_availables = {}
+    models = []
+    
+    for model in client.models.list():
+        models.append(model.id)
+        models_availables[model.id] = True
+
+    
+
+    
+    model = "gpt-5-nano-2025-08-07"
     print("Loading MCP servers...")
     await mcp_tools.load_mpc_tools()
     if len(mcp_tools.get_mcp_tools()) > 0:
@@ -74,7 +85,22 @@ async def start():
         )
         
     while(True):
-        user_prompt = input("> Tell what you want to do?\n")
+        user_prompt = input(f"> Tell what you want to do?(Model: {model})\n")
+            
+        if user_prompt == "/models":
+            for model in models:
+                print(model)
+            continue
+        
+        
+        if user_prompt.startswith("/set-model"):
+            model_id = user_prompt.split(" ")[1]
+            if models_availables.get(model_id) == None:
+                print("Model not found")
+            
+            model = model_id
+            continue
+        
             
         if user_prompt == "exit": 
             print(f"Continue this session using command: python main.py {session.get_session_id()}")
@@ -89,7 +115,7 @@ async def start():
             print("Bot: Thinking...")
             
             response = client.chat.completions.create(
-                model="gpt-5-nano-2025-08-07",
+                model=model,
                 messages=messages,
                 tools=(get_available_tools.get(
                     target_dir, module_name, 
@@ -101,7 +127,6 @@ async def start():
             msg = response.choices[0].message
             messages.append(msg);
             
-            print(msg.role, msg.content)
             session.save(msg.role, msg.content or "")
 
             if msg.tool_calls == None or len(msg.tool_calls) == 0: 
