@@ -6,6 +6,8 @@
 - Code agent can receive many instructions at once and will understand execute one by one
 - Support tools. PS: you can create your tools add a file on folder **tools**
 - Support MCP servers. PS: you need to provide the file in json format.
+- Plan mode. PS: you can plan your code before execute it.
+- Change the OpenAi model to select one you prefer or more powerful.
 
 ## HOW TO USE
 
@@ -24,5 +26,13 @@ PROJECT_FOLDER="absolute_path_where_you_installed_project"      // Or ./
 
 ## EXTRA INFO
 
+- Commands available: /help, /models, /set-model <model_id>, /plan, /build, /exit
+ ```txt
+/models - List all models available
+/set-model <model_id> - Set the model to use
+/plan - Enable plan mode. PS: is good to plan feature before build anything
+/build - Build the plan. PS: execute the plan. Default mode when start the code agent
+/exit - Exit the program
+ ```
 - You can see a example of mcp.json on root of project, file named **mcp.json**
 - The folders todo-app and todo-app-react are project I created used this AI code agent.
