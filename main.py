@@ -61,13 +61,13 @@ async def start():
     models = []
     
     for model in client.models.list():
-        models.append(model.id)
-        models_availables[model.id] = True
+        if "gpt" in model.id.lower():
+            models.append(model.id)
+            models_availables[model.id] = True
 
-    
-
-    
     model = "gpt-5-nano-2025-08-07"
+    enablePlanMode = False
+    
     print("Loading MCP servers...")
     await mcp_tools.load_mpc_tools()
     if len(mcp_tools.get_mcp_tools()) > 0:
@@ -85,13 +85,20 @@ async def start():
         )
         
     while(True):
-        user_prompt = input(f"> Tell what you want to do?(Model: {model})\n")
+        user_prompt = input(f"> Tell what you want to do?(Model: {model} | Plan mode: {'Enabled' if enablePlanMode else 'Disabled'})\n")
             
         if user_prompt == "/models":
             for model in models:
                 print(model)
             continue
         
+        if user_prompt == "/plan":
+            enablePlanMode = True
+            continue
+        
+        if user_prompt == "/build":
+            enablePlanMode = False
+            user_prompt = "Build the plan"
         
         if user_prompt.startswith("/set-model"):
             model_id = user_prompt.split(" ")[1]
@@ -102,7 +109,7 @@ async def start():
             continue
         
             
-        if user_prompt == "exit": 
+        if user_prompt == "/exit": 
             print(f"Continue this session using command: python main.py {session.get_session_id()}")
             sys.exit(0)
             
@@ -114,14 +121,20 @@ async def start():
         while(True):
             print("Bot: Thinking...")
             
-            response = client.chat.completions.create(
-                model=model,
-                messages=messages,
-                tools=(get_available_tools.get(
+            
+            tools = (get_available_tools.get(
                     target_dir, module_name, 
                     tools_allowed, 
                     tools_descriptions, tools_schemas    
-                ) + (mcp_tools.get_mcp_tools())),
+                ) + (mcp_tools.get_mcp_tools()))
+            
+            if enablePlanMode == True:
+                tools = []
+            
+            response = client.chat.completions.create(
+                model=model,
+                messages=messages,
+                tools=tools,
             )
 
             msg = response.choices[0].message
